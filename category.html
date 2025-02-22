@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Scholarships by Category</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .category-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+        }
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #ddd;
+        }
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        .category-count {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .scholarship-list {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+        }
+        .scholarship-item {
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+        .scholarship-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .scholarship-item a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Browse by All Categories</h1>
+        <div class="categories-grid" id="categoriesGrid">
+            <!-- Categories will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Scholarship categories data
+        const categories = [
+            {
+                title: "SC/ST/OBC and Minority Community",
+                scholarships: [
+                    { name: "Post-Matric Scholarship for SC Students", link: "https://scholarships.gov.in/" },
+                    { name: "Post-Matric Scholarship for OBC Students", link: "https://scholarships.gov.in/" },
+                    { name: "Merit-cum-Means Scholarship for Minority Students", link: "https://scholarships.gov.in/" }
+                ]
+            },
+            {
+                title: "General",
+                scholarships: [
+                    { name: "National Scholarship Portal", link: "https://scholarships.gov.in/" }
+                ]
+            },
+            {
+                title: "Minority",
+                scholarships: [
+                    { name: "Pre-Matric Scholarship for Minorities", link: "https://scholarships.gov.in/" },
+                    { name: "Post-Matric Scholarship for Minorities", link: "https://scholarships.gov.in/" },
+                    { name: "Merit-cum-Means Scholarship for Professional and Technical Courses", link: "https://scholarships.gov.in/" }
+                ]
+            },
+            {
+                title: "Girls",
+                scholarships: [
+                    { name: "Kanyashree Prakalpa", link: "https://wbkanyashree.gov.in/" }
+                ]
+            },
+            {
+                title: "Physically Challenged",
+                scholarships: [
+                    { name: "Scholarships for Students with Disabilities", link: "https://scholarships.gov.in/" }
+                ]
+            },
+            {
+                title: "Economically Backward Class",
+                scholarships: [
+                    { name: "Central Sector Scheme of Scholarships for College and University Students", link: "https://scholarships.gov.in/" }
+                ]
+            },
+            {
+                title: "Below Poverty Line (BPL)",
+                scholarships: [
+                    { name: "National Means-cum-Merit Scholarship", link: "https://scholarships.gov.in/" }
+                ]
+            }
+        ];
+
+        // Function to create category cards
+        function createCategoryCards() {
+            const grid = document.getElementById('categoriesGrid');
+            
+            categories.forEach(category => {
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.innerHTML = `
+                    <div class="category-title">${category.title}</div>
+                    <div class="category-count">${category.scholarships.length} Scholarships</div>
+                `;
+                card.addEventListener('click', () => displayScholarships(category.scholarships, category.title));
+                grid.appendChild(card);
+            });
+        }
+
+        // Function to display scholarships for a category
+        function displayScholarships(scholarships, categoryTitle) {
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = `
+                <h2>${categoryTitle}</h2>
+                <ul class="scholarship-list">
+                    ${scholarships.map(sch => `
+                        <li class="scholarship-item">
+                            <a href="${sch.link}" target="_blank">${sch.name}</a>
+                        </li>
+                    `).join('')}
+                </ul>
+                <button onclick="createCategoryCards()">Back to Categories</button>
+            `;
+        }
+
+        // Initialize the grid
+        document.addEventListener('DOMContentLoaded', createCategoryCards);
+    </script>
+</body>
+</html>

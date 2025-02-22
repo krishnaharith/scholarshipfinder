@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Scholarship Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #searchBar {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        #stateGrid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 80%;
+            margin: auto;
+        }
+        .state-item {
+            padding: 10px;
+            background: #f1f1f1;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .state-item:hover {
+            background: #ddd;
+        }
+        @media (max-width: 800px) {
+            #stateGrid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 500px) {
+            #stateGrid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Search for State Scholarship Portals</h2>
+    <input type="text" id="searchBar" placeholder="Search for a state..." onkeyup="filterStates()">
+
+    <div id="stateGrid">
+        <!-- State items will be dynamically added here -->
+    </div>
+
+    <script>
+        const states = [
+            { name: "Andhra Pradesh", url: "https://jnanabhumi.ap.gov.in/" },
+            { name: "Arunachal Pradesh", url: "https://scholarship.arunachal.gov.in/" },
+            { name: "Assam", url: "https://directorateofhighereducation.assam.gov.in/" },
+            { name: "Bihar", url: "https://medhasoft.bih.nic.in/" },
+            { name: "Chhattisgarh", url: "https://schoolscholarship.cg.nic.in/" },
+            { name: "Delhi", url: "https://scstwelfare.delhigovt.nic.in/" },
+            { name: "Goa", url: "https://www.dhe.goa.gov.in/schemes" },
+            { name: "Gujarat", url: "https://scholarships.gujarat.gov.in/" },
+            { name: "Haryana", url: "https://harchhatravratti.highereduhry.ac.in/" },
+            { name: "Himachal Pradesh", url: "https://hpepass.cgg.gov.in/" },
+            { name: "Jharkhand", url: "https://ekalyan.cgg.gov.in/" },
+            { name: "Karnataka", url: "https://ssp.karnataka.gov.in/" },
+            { name: "Kerala", url: "https://dcescholarship.kerala.gov.in/" },
+            { name: "Madhya Pradesh", url: "https://scholarshipportal.mp.nic.in/" },
+            { name: "Maharashtra", url: "https://mahadbt.maharashtra.gov.in/" },
+            { name: "Manipur", url: "https://www.manipurscholarship.gov.in/" },
+            { name: "Meghalaya", url: "https://megeducation.gov.in/" },
+            { name: "Mizoram", url: "https://scholarship.mizoram.gov.in/" },
+            { name: "Nagaland", url: "https://highereducation.nagaland.gov.in/" },
+            { name: "Odisha", url: "https://scholarship.odisha.gov.in/" },
+            { name: "Punjab", url: "https://scholarships.punjab.gov.in/" },
+            { name: "Rajasthan", url: "https://sje.rajasthan.gov.in/" },
+            { name: "Sikkim", url: "https://sikkim.gov.in/scholarship" },
+            { name: "Tamil Nadu", url: "https://www.tn.gov.in/scheme" },
+            { name: "Telangana", url: "https://telanganaepass.cgg.gov.in/" },
+            { name: "Tripura", url: "https://highereducation.tripura.gov.in/" },
+            { name: "Uttar Pradesh", url: "https://scholarship.up.gov.in/" },
+            { name: "Uttarakhand", url: "https://escholarship.uk.gov.in/" },
+            { name: "West Bengal", url: "https://oasis.gov.in/" }
+        ];
+
+        const stateGrid = document.getElementById("stateGrid");
+
+        function displayStates(filteredStates = states) {
+            stateGrid.innerHTML = "";
+            filteredStates.forEach(state => {
+                let div = document.createElement("div");
+                div.className = "state-item";
+                div.textContent = state.name;
+                div.onclick = () => window.open(state.url, "_blank");
+                stateGrid.appendChild(div);
+            });
+        }
+
+        function filterStates() {
+            let query = document.getElementById("searchBar").value.toLowerCase();
+            let filteredStates = states.filter(state => state.name.toLowerCase().includes(query));
+            displayStates(filteredStates);
+        }
+
+        displayStates();
+    </script>
+
+</body>
+</html>
+
